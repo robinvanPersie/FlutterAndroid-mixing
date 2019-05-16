@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/go_customize"
+        android:title="customizeActivity"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/route2"
+        android:title="route2"
+        app:showAsAction="ifRoom" />
+
+</menu>
