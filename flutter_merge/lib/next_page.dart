@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_merge/tqx/channel/channels.dart';
 
 class NextPage extends StatefulWidget {
 
@@ -11,13 +11,11 @@ class NextPage extends StatefulWidget {
 
 class _NextPageState extends State<NextPage> {
 
-  static const MethodChannel methodChannel = MethodChannel('com.antimage.af/to_android');
-  static const EventChannel eventChannel = EventChannel('com.antimage.af/to_flutter');
   StreamSubscription subscription;
 
   Future<void> _toAndroidGetBatteryLevel() async {
       String batteryLevel;
-      final int result = await methodChannel.invokeMethod('getBatteryLevel');
+      final int result = await Channels.batteryLevel;
       batteryLevel = 'level: $result.';
       print(batteryLevel);
   }
@@ -25,7 +23,7 @@ class _NextPageState extends State<NextPage> {
   @override
   void initState() {
       super.initState();
-      subscription = eventChannel.receiveBroadcastStream('next_page.dart init()').listen(_onEvent, onError: _onError);
+      subscription = Channels.receiver('next_page.dart init()').listen(_onEvent, onError: _onError);
   }
 
   void _onEvent(Object event) {

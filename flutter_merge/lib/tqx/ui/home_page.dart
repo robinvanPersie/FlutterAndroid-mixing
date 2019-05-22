@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_merge/tqx/ui/search_page.dart';
 import 'sub/product_page.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_merge/tqx/widget/swiper/without_control.dart';
@@ -50,6 +51,11 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                       child: Container(
                         margin: EdgeInsets.only(left: 10.0),
                         child: Swiper(
+                          onTap: (index) {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                              return SearchPage();
+                            }));
+                          },
                           scrollDirection: Axis.vertical,
                           itemCount: loopText.length,
                           itemBuilder: (context, index) {
@@ -66,7 +72,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                         ),
                       )
                     ),
-
                   ],
                 ),
               ),

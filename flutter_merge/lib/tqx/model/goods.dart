@@ -30,6 +30,8 @@ class Goods {
   num commissionDay;
   num couponStartFee;
 
+  bool isFavorite = false;
+
   Goods.fromJson(Map json)
       : ID = json['ID'],
         goodsId = json['GoodsId'],

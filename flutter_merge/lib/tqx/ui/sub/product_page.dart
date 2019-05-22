@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_merge/tqx/common/colors.dart';
 import 'package:flutter_merge/tqx/model/product_bean.dart';
 import 'package:flutter_merge/tqx/model/goods.dart';
 import 'package:flutter_merge/tqx/net/http_client.dart';
+import 'package:flutter_merge/tqx/ui/details_page.dart';
 
 class ProductListPage extends StatefulWidget {
 
@@ -63,63 +65,70 @@ class _ProductListPageState extends State<ProductListPage> with AutomaticKeepAli
 
   Widget _buildItem(context, index) {
     Goods goods = list[index];
-    return Container(
-      margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
-      height: 100.0,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context){
+          return DetailsPage(goods: goods,);
+        }));
+      },
+      child: Container(
+        margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+        height: 100.0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
 //          图片
-          Container(
-            width: 100.0,
-            height: 100.0,
+            Container(
+              width: 100.0,
+              height: 100.0,
 //            child: Image.asset('images/dog.jpeg', fit: BoxFit.cover,),
-            child: Image.network(goods.imgUrl),
-          ),
-//          标题
-          Expanded(child: Container(
-            margin: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(goods.goodsName, style: TextStyle(fontSize: 15.0), maxLines: 2, overflow: TextOverflow.ellipsis,),
-//                原价 和 销量 row
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text('原价 ¥${goods.goodsPrice}', style: TextStyle(fontSize: 13.0, color: Color(0xff666666), decoration: TextDecoration.lineThrough),),
-                      Text('销量${goods.saleCount}', style: TextStyle(fontSize: 13.0, color: Color(0xff666666),),),
-                    ],
-                  ),
-                ),
-//                立减 券后
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.fromLTRB(4, 2, 4, 2),
-                        decoration: BoxDecoration(color: Colors.white, border: Border.all(color: Colors.black, width: 1.0), borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                        child: Text('立减¥${goods.actMoney}', style: TextStyle(fontSize: 12.0, color: Colors.black,),),
-                      ),
-                      Container(
-                        padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
-                        decoration: BoxDecoration(color: Color(0xff1384ff), borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                        child: Text('券后¥${goods.lastPrice}', style: TextStyle(fontSize: 15.0, color: Colors.white),),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              child: Image.network(goods.imgUrl),
             ),
-          ),
-          ),
-        ],
-      ), // 第一个 Row
+//          标题
+            Expanded(child: Container(
+              margin: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(goods.goodsName, style: TextStyle(fontSize: 15.0), maxLines: 2, overflow: TextOverflow.ellipsis,),
+//                原价 和 销量 row
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text('原价 ¥${goods.goodsPrice}', style: TextStyle(fontSize: 13.0, color: Colorful.TEXT_GREY, decoration: TextDecoration.lineThrough),),
+                        Text('销量${goods.saleCount}', style: TextStyle(fontSize: 13.0, color: Colorful.TEXT_GREY,),),
+                      ],
+                    ),
+                  ),
+//                立减 券后
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.fromLTRB(4, 2, 4, 2),
+                          decoration: BoxDecoration(color: Colors.white, border: Border.all(color: Colors.black, width: 1.0), borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                          child: Text('立减¥${goods.actMoney}', style: TextStyle(fontSize: 12.0, color: Colors.black,),),
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
+                          decoration: BoxDecoration(color: Color(0xff1384ff), borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                          child: Text('券后¥${goods.lastPrice}', style: TextStyle(fontSize: 15.0, color: Colors.white),),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ),
+          ],
+        ), // 第一个 Row
+      ),
     );
   }
 }
