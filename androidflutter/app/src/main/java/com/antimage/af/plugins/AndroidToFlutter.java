@@ -8,6 +8,7 @@ import android.util.Log;
 
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.EventChannel;
+import io.flutter.plugin.common.PluginRegistry;
 
 /**
  * Created by xuyuming on 2019/5/16.
@@ -20,7 +21,6 @@ public class AndroidToFlutter implements EventChannel.StreamHandler {
 
     private Context context;
     private BroadcastReceiver broadcastReceiver;
-    private AndroidToFlutter instance;
 
     private AndroidToFlutter() {}
 
@@ -28,9 +28,10 @@ public class AndroidToFlutter implements EventChannel.StreamHandler {
         this.context = context;
     }
 
-    public static AndroidToFlutter registerWith(Context context, BinaryMessenger binaryMessenger) {
-        EventChannel eventChannel = new EventChannel(binaryMessenger, MSG_CHANNEL);
-        AndroidToFlutter instance = new AndroidToFlutter(context);
+    public static AndroidToFlutter registerWith(PluginRegistry pluginRegistry) {
+        PluginRegistry.Registrar registrar = pluginRegistry.registrarFor("com.antimage.af.plugins.AndroidToFlutter");
+        EventChannel eventChannel = new EventChannel(registrar.messenger(), MSG_CHANNEL);
+        AndroidToFlutter instance = new AndroidToFlutter(registrar.activeContext());
         eventChannel.setStreamHandler(instance);
         return instance;
     }

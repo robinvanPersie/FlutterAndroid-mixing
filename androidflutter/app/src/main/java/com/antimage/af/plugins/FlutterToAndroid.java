@@ -8,9 +8,12 @@ import android.os.BatteryManager;
 import android.os.Build;
 import android.util.Log;
 
+import com.antimage.af.utils.IntentUtils;
+
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
+import io.flutter.plugin.common.PluginRegistry;
 
 /**
  * Created by xuyuming on 2019/5/16.
@@ -28,9 +31,11 @@ public class FlutterToAndroid implements MethodChannel.MethodCallHandler {
         this.context = context;
     }
 
-    public static void registerWith(Context context, BinaryMessenger binaryMessenger) {
-        MethodChannel methodChannel = new MethodChannel(binaryMessenger, BATTERY_CHANNEL);
-        FlutterToAndroid instance = new FlutterToAndroid(context);
+//    public static void registerWith(Context context, BinaryMessenger binaryMessenger) {
+    public static void registerWith(PluginRegistry pluginRegistry) {
+        PluginRegistry.Registrar registrar = pluginRegistry.registrarFor("com.antimage.af.plugins.FlutterToAndroid");
+        MethodChannel methodChannel = new MethodChannel(registrar.messenger(), BATTERY_CHANNEL);
+        FlutterToAndroid instance = new FlutterToAndroid(registrar.activeContext());
         methodChannel.setMethodCallHandler(instance);
     }
 
@@ -42,7 +47,7 @@ public class FlutterToAndroid implements MethodChannel.MethodCallHandler {
     @Override
     public void onMethodCall(MethodCall call, MethodChannel.Result result) {
         Log.e(getClass().getSimpleName(), "methodChannel Thread name: " + Thread.currentThread().getName());
-        if (call.method.equals("getBatteryLevel")) {
+        if ("getBatteryLevel".equals(call.method)) {
             // 获取flutter传过来的参数
             if (call.hasArgument("where")) {
                 Log.d(getClass().getSimpleName(), call.argument("where"));
@@ -52,6 +57,13 @@ public class FlutterToAndroid implements MethodChannel.MethodCallHandler {
                 result.success(batteryLevel);
             } else {
                 result.error("unavailable", "Battery level not available.", null);
+            }
+        } else if ("openApplication".equals(call.method)) {
+            String pkg = call.argument("package");
+            if ("taobao".equals(pkg)) {
+                String actLink = call.argument("actLink");
+                IntentUtils.openTaobaoCoupon(context, actLink);
+                result.success(null);
             }
         } else {
             result.notImplemented();

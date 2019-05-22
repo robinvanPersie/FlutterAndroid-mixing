@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.antimage.af.delegate.CustomizeDelegate;
 import com.antimage.af.plugins.AndroidToFlutter;
 import com.antimage.af.plugins.FlutterToAndroid;
 
@@ -23,12 +24,13 @@ import io.flutter.view.FlutterView;
  * 所以此类将展示如何在不继承的情况下，实现继承FlutterActivity的效果
  */
 public class CustomizeActivity extends AppCompatActivity implements FlutterView.Provider,
-        PluginRegistry, FlutterActivityDelegate.ViewFactory {
+        PluginRegistry, FlutterActivityDelegate.ViewFactory, CustomizeDelegate.ViewFactory {
 
     /**
      * delegate里对window进行了设置，例如statusBar不是primaryColor，之后考虑实现自己的delegate来保留material样式
      */
-    private final FlutterActivityDelegate delegate = new FlutterActivityDelegate(this, this);
+//    private final FlutterActivityDelegate delegate = new FlutterActivityDelegate(this, this);
+    private final CustomizeDelegate delegate = new CustomizeDelegate(this, this);
     private final FlutterActivityEvents eventDelegate;
     private final FlutterView.Provider viewProvider;
     private final PluginRegistry pluginRegistry;
@@ -45,11 +47,12 @@ public class CustomizeActivity extends AppCompatActivity implements FlutterView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.eventDelegate.onCreate(savedInstanceState);
-        // 这是flutter生成的类，里面什么也没有实现
+        // 这是flutter生成的类，会自动实现flutter依赖的plugin，eg：sqflite
         GeneratedPluginRegistrant.registerWith(this);
 
-        FlutterToAndroid.registerWith(this, getFlutterView());
-        androidToFlutter = AndroidToFlutter.registerWith(this, getFlutterView());
+//        FlutterToAndroid.registerWith(this, getFlutterView());
+        FlutterToAndroid.registerWith(this);
+        androidToFlutter = AndroidToFlutter.registerWith(this);
     }
 
     @Override

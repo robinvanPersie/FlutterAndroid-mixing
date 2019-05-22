@@ -31,8 +31,9 @@ public class MainActivity extends AppCompatActivity {
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(-1, -1);
         setContentView(fv, params);
 
-        FlutterToAndroid.registerWith(this, fv);
-        androidToFlutter = AndroidToFlutter.registerWith(this, fv);
+//        FlutterToAndroid.registerWith(this, fv);
+        FlutterToAndroid.registerWith(fv.getPluginRegistry());
+        androidToFlutter = AndroidToFlutter.registerWith(fv.getPluginRegistry());
 
     }
 
@@ -61,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.go_customize) {
             startActivity(new Intent(this, CustomizeActivity.class));
+            return true;
+        } else if (item.getItemId() == R.id.route2) {
+            startActivity(new Intent(this, ExtendsActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

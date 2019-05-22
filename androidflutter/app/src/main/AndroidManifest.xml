@@ -17,7 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".act.CustomizeActivity"/>
+        <activity android:name=".act.CustomizeActivity" />
+        <activity android:name=".act.ExtendsActivity"></activity>
     </application>
 
 </manifest>
