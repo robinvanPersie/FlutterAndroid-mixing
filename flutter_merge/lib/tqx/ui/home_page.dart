@@ -80,7 +80,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               child: Container(
                 margin: EdgeInsets.only(left: 20.0, right: 20.0),
                 height: 150.0,
-                color: Colors.lightBlue,
                 child: Swiper(
                     itemBuilder: (context, index) {
                       return Image.asset('images/3.0/' + banners[index], fit: BoxFit.cover,);

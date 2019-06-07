@@ -14,7 +14,7 @@ var searchTags = ['保暖内衣', '帽子', '懒人火锅', '手机壳', '护肤
 class _SearchPageState extends State<SearchPage> {
 
   List<Widget> tags = List();
-  String key;
+  String key = '';
 
   @override
   void initState() {
@@ -23,6 +23,9 @@ class _SearchPageState extends State<SearchPage> {
       GestureDetector g = GestureDetector(
         onTap: (){
           print(tag);
+          setState(() {
+            key = tag;
+          });
         },
         child: Container(
           padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
@@ -41,7 +44,13 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _controller = TextEditingController();
+    TextEditingController  _controller = TextEditingController.fromValue(TextEditingValue(
+      text: key,
+      selection: TextSelection.fromPosition(TextPosition(
+        affinity: TextAffinity.downstream,
+        offset: key == null ? 0 : key.length,
+      ))
+    ));
     return CustomizeScaffold(
       title: '搜索',
       body: Column(
