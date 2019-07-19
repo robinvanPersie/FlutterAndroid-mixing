@@ -2,21 +2,24 @@ import 'package:flutter/material.dart';
 
 class CustomizeScaffold extends StatefulWidget {
   
-  String title;
-  IconData iconData;
-  Widget body;
-  VoidCallback backPress;
-  List<Widget> actions;
+  final String title;
+  final IconData iconData;
+  final Widget body;
+  final VoidCallback backPress;
+  final List<Widget> actions;
+  final FloatingActionButton floatingActionButton;
   
   CustomizeScaffold({
+    Key key,
     @required this.title,
     IconData iconData,
     @required this.body,
     this.backPress,
     this.actions,
+    this.floatingActionButton,
   }) : 
       iconData = iconData == null ? Icons.arrow_back : iconData,
-      super();
+      super(key: key);
   
   @override
   _CustomizeScaffoldState createState() => new _CustomizeScaffoldState();
@@ -39,6 +42,7 @@ class _CustomizeScaffoldState extends State<CustomizeScaffold> {
         actions: widget.actions,
       ),
       body: widget.body,
+      floatingActionButton: widget.floatingActionButton,
     );
   }
 }

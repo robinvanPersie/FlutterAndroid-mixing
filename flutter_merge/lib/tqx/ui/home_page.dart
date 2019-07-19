@@ -23,7 +23,9 @@ TabController _tabController;
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
 
   @override
-  bool get wantKeepAlive => true;
+  bool get wantKeepAlive {
+    return true;
+  }
 
   @override
   void initState() {
@@ -82,7 +84,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 height: 150.0,
                 child: Swiper(
                     itemBuilder: (context, index) {
-                      return Image.asset('images/3.0/' + banners[index], fit: BoxFit.cover,);
+                      return Image.asset('images/3.0x/' + banners[index], fit: BoxFit.cover,);
                     },
                     itemCount: banners.length,
                     autoplay: true,
@@ -158,6 +160,13 @@ class _TabBarLayoutState extends State<TabBarLayout> {
     super.initState();
     _primaryColor = Color(0xff1384ff);
     _normalColor = Colors.black;
+  }
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
   }
 
   List<Widget> _buildTab() {
