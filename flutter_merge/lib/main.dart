@@ -49,7 +49,8 @@ class RouterBody extends StatefulWidget {
 class _RouterBodyState extends State<RouterBody> {
 
   var items = ['淘气星球App', 'PointerEvent原始指针事件处理', 'Drag拖动手势',
-    'Scale缩放手势', 'EventBus事件总线', '通知冒泡'];
+    'Scale缩放手势', 'EventBus事件总线', '通知冒泡', 'scale动画', 'Hero',
+  '交错动画'];
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,9 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_merge/book/animation/anim.dart';
+import 'package:flutter_merge/book/animation/hero/hero_anim.dart';
+import 'package:flutter_merge/book/animation/staggered_anim.dart';
 import 'package:flutter_merge/book/event/bus_example.dart';
 import 'package:flutter_merge/book/gesture/gesture_drag.dart';
 import 'package:flutter_merge/book/gesture/gesture_scale.dart';
@@ -16,6 +19,9 @@ class RouteManager {
   static const SCALE_GESTURE = 'scale';
   static const EVENT_BUS_EXAMPLE = 'event_bus';
   static const NOTIFICATION = 'notification';
+  static const ANIMATION_SCALE = 'anim_scale';
+  static const HERO_ANIM = 'hero_anim';
+  static const STAGGER_ANIM = 'stagger_anim';
 
   static Map<String, WidgetBuilder> _map = {
     TQX_MAIN_PAGE: _build(TQXScaffold()),
@@ -24,6 +30,9 @@ class RouteManager {
     SCALE_GESTURE: _build(ScaleGesture()),
     EVENT_BUS_EXAMPLE: _build(EventRegisterPage()),
     NOTIFICATION: _build(NotificationPage()),
+    ANIMATION_SCALE: _build(ScaleAnimPage()),
+    HERO_ANIM: _build(HeroAnimPage()),
+    STAGGER_ANIM: _build(StaggerPage())
   };
 
   static List<String> _list;
