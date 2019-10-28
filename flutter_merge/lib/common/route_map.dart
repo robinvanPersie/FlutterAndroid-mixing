@@ -9,6 +9,7 @@ import 'package:flutter_merge/book/gesture/gesture_drag.dart';
 import 'package:flutter_merge/book/gesture/gesture_scale.dart';
 import 'package:flutter_merge/book/notification/notification.dart';
 import 'package:flutter_merge/book/pointer/listener_widget.dart';
+import 'package:flutter_merge/book/view/custom_widget.dart';
 import 'package:flutter_merge/tqx_main.dart';
 
 class RouteManager {
@@ -22,6 +23,7 @@ class RouteManager {
   static const ANIMATION_SCALE = 'anim_scale';
   static const HERO_ANIM = 'hero_anim';
   static const STAGGER_ANIM = 'stagger_anim';
+  static const CUSTOM_WIDGET = 'custom_widgets';
 
   static Map<String, WidgetBuilder> _map = {
     TQX_MAIN_PAGE: _build(TQXScaffold()),
@@ -32,7 +34,8 @@ class RouteManager {
     NOTIFICATION: _build(NotificationPage()),
     ANIMATION_SCALE: _build(ScaleAnimPage()),
     HERO_ANIM: _build(HeroAnimPage()),
-    STAGGER_ANIM: _build(StaggerPage())
+    STAGGER_ANIM: _build(StaggerPage()),
+    CUSTOM_WIDGET: _build(CustomWidgets())
   };
 
   static List<String> _list;

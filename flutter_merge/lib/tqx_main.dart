@@ -48,6 +48,7 @@ class _TQXScaffoldState extends State<TQXScaffold> {
       appBar: AppBar(
           title: Text(_title == null ? '商城' : _title),
           elevation: 0.2,
+        automaticallyImplyLeading: false,
         actions: <Widget>[
           MaterialButton(
             onPressed: () {
